@@ -27,29 +27,32 @@ class Entity
 }
 ```
 Then, call
-```csharp
+```
+var entitySet = new EntitySet();
+// initialize entitySet...
 Func<EntitySet, EntitySet> f = Affector.Generate<EntitySet>(script);
+var updatedEntitySet = f(entitySet);
 ```
 The scripts that can be described in this example are as below.
-```csharp
+```
 E1(value operation for Value1 and Value2)
 E1(condition for A, value operation for Value1 and Value2)
 E1(condition for A, condition for B, value operation for Value1 and Value2)
 
 E1.V1(value operation for Value1)
-E1.V1(condition for A, value operation for Value1)
-E1.V1(condition for A, condition for B, value operation for Value1)
+E1.V1(condition for Key1, value operation for Value1)
+E1.V1(condition for Key1, condition for Key2, value operation for Value1)
 
 E1.V2(value operation for Value2)
-E1.V2(condition for A, value operation for Value2)
-E1.V2(condition for A, condition for B, value operation for Value2)
+E1.V2(condition for Key1, value operation for Value2)
+E1.V2(condition for Key1, condition for Key2, value operation for Value2)
 ```
 It is possible to combine the above functions with comma.
-```csharp
+```
 E1.V1(value operation for Value1), E1.V2(condition for A, value operation for Value2)
 ```
 Script example.
-```csharp
+```
 // both value1 and value2 update to value+=100
 E1(+0.01)
 // assign 0.01 to value1 if Key1=="A"
